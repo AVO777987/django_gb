@@ -9,7 +9,16 @@ from basketapp.models import Basket
 def get_basket(user):
     if user.is_authenticated:
         return Basket.objects.filter(user=user)
-    return []
+    return None
+
+
+def get_hot_product():
+    return random.sample(list(Products.objects.all()), 1)[0]
+
+
+def get_same_products(hot_product):
+    product_list = Products.objects.filter(category=hot_product.category).exclude(pk=hot_product.pk)[:3]
+    return product_list
 
 
 def index(request):
@@ -49,8 +58,9 @@ def products(request, pk=None):
             'basket': get_basket(request.user)
         }
         return render(request, 'mainapp/products_list.html', context=context)
-    hot_product = random.sample(list(Products.objects.all()), 1)[0]
-    same_products = Products.objects.all()[3:5]
+
+    hot_product = get_hot_product()
+    same_products = get_same_products(hot_product)
     context = {
         'links_menu': links_menu,
         'title': 'Продукты',
@@ -59,4 +69,14 @@ def products(request, pk=None):
         'basket': get_basket(request.user)
     }
     return render(request, 'mainapp/products.html', context=context)
+
+
+def product(request, pk):
+    links_menu = ProductCategory.objects.all()
+    context = {
+        'product': get_object_or_404(Products, pk=pk),
+        'links_menu': links_menu,
+        'basket': get_basket(request.user),
+    }
+    return render(request, 'mainapp/product.html', context=context)
 
