@@ -22,4 +22,7 @@
       В корзине {{ basket_list.0.total_quantity }} товаров общей стоимостью
                 {{ basket_list.0.total_cost }} руб
     </div>
+      <button class="btn btn-round">
+      <a href="{% url 'index' %}">на главную</a>
+      </button>
   {% endif %}

@@ -45,7 +45,7 @@ def edit(request, pk, quantity):
         quantity = int(quantity)
         basket_item = Basket.objects.get(pk=pk)
 
-        if quantity > 0 :
+        if quantity > 0:
             basket_item.quantity = quantity
             basket_item.save()
         else:
@@ -58,6 +58,5 @@ def edit(request, pk, quantity):
         }
 
         result = render_to_string('basketapp/includes/inc_basket_list.html', context=context)
-
         return JsonResponse({'result': result})
 
