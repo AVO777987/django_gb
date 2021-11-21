@@ -28,3 +28,9 @@ class Products(models.Model):
     def __str__(self):
         return f'{self.name} ({self.category.name})'
 
+    def delete(self):
+        if self.is_active:
+            self.is_active = False
+        else:
+            self.is_active = True
+        self.save()
