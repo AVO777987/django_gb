@@ -1,0 +1,16 @@
+{% extends 'adminapp/base.html' %}
+
+{% block content %}
+    <div>
+    {% if object.is_active %}
+        Уверены что хотите удалить товар {{ object.get_full_name }}?
+    {% else %}
+        Уверены, что хотите востановить товар {{ object.get_full_name }}?
+    {% endif %}
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Уверен" class="btn btn-danger">
+        <a href="{% url 'adminapp:product_list' object.category.pk %}" class="btn btn-success">Нет</a>
+    </form>
+{% endblock %}
