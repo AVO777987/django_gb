@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    ''
     'debug_toolbar',
     'social_django',
-    'template_profiler_panel'
+    'template_profiler_panel',
 
     'adminapp',
     'mainapp',
