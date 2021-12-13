@@ -39,5 +39,4 @@ if settings.DEBUG:
 
 if settings.DEBUG:
    import debug_toolbar
-
    urlpatterns += [re_path(r'^__debug__/', include(debug_toolbar.urls))]
