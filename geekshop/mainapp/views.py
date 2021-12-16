@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from mainapp.models import Products, ProductCategory
 from django.conf import settings
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 
 def get_links_menu():
@@ -53,6 +54,7 @@ def contact(request):
     return render(request, 'mainapp/contact.html', context=context)
 
 
+@cache_page(3600)
 def products(request, pk=None, page=1):
     links_menu = get_links_menu
     if pk is not None:
