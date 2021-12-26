@@ -2,6 +2,7 @@ import random
 
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from mainapp.models import Products, ProductCategory
 from django.conf import settings
 from django.core.cache import cache
