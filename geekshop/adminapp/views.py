@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Products
-from adminapp.forms import ShopUserAdminEditForm
+from adminapp.forms import ShopUserAdminEditForm, ProductCategoryEditForm
 
 from authapp.forms import ShopUserRegisterForm
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
@@ -110,14 +110,20 @@ def categories(request):
     return render(request, 'adminapp/categories.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_update(request):
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_update(request):
+#
+#     context = {
+#
+#     }
+#
+#     return render(request, '', context)
 
-    context = {
-
-    }
-
-    return render(request, '', context)
+class ProductCategoryUpdateView(UpdateView):
+    model = ProductCategory
+    form_class = ProductCategoryEditForm
+    template_name = 'adminapp/products_form.html'
+    success_url = reverse_lazy('adminapp:category_list')
 
 
 @user_passes_test(lambda u: u.is_superuser)
